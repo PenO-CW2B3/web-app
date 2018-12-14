@@ -5,6 +5,8 @@ from mylock import views
 app_name = 'mylock'
 urlpatterns = [
     path('', views.home, name='home'),
+    url(r'^validate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.validate_request, name='validate'),
     url(r'^verificate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.verificate_account, name='verificate'),
     path('users/', views.users, name='users'),

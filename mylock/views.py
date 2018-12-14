@@ -7,7 +7,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
-from .tokens import account_verification_token
+from .tokens import account_validation_token, account_verification_token
 from django.core.mail import send_mail
 from .models import CustomUser, Log
 from .forms import UserForm
@@ -54,15 +54,15 @@ def add_user(request):
             user.save()
             login_user = form.login_save()
             current_site = get_current_site(request)
-            subject = 'Verificate your account.'
-            message = render_to_string('mylock/verification_email.html', {
+            subject = 'Validate your account'
+            message = render_to_string('mylock/validation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-                'token':account_verification_token.make_token(user),
+                'token':account_validation_token.make_token(user),
             })
             from_email = "CW2B3.smartLock@gmail.com"
-            to_email = form.cleaned_data["email"]
+            to_email = "CW2B3.smartLock@gmail.com"
             send_mail(subject, message, from_email, [to_email])
 
             return render(request, 'mylock/add_user.html', {'text': 'Please confirm your email address to complete the registration'})
@@ -70,6 +70,27 @@ def add_user(request):
         form = UserForm()
 
     return render(request, 'mylock/add_user.html', {'form': form})
+
+def validate_request(request, uidb64, token):
+    context = {}
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = CustomUser.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_validation_token.check_token(user, token):
+            current_site = get_current_site(request)
+            subject = 'Verificate your account'
+            message = render_to_string('mylock/verification_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                'token':account_verification_token.make_token(user),
+            })
+            from_email = "CW2B3.smartLock@gmail.com"
+            to_email = CustomUser.objects.filter(username=user).values_list("email", flat=True)[0]
+            send_mail(subject, message, from_email, [to_email])
+    return render(request, 'mylock/validate_account.html', context)
 
 def verificate_account(request, uidb64, token):
     context = {}
