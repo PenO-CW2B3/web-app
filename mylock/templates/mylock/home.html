@@ -1,0 +1,20 @@
+{% extends 'mylock_base.html' %}
+
+{% block urltitle %}smartLock | Home{% endblock %}
+
+{% block title %}Welcome to smartLock{% endblock %}
+
+{% block content %}
+{% if not request.user.is_superuser and fingerprint_ID == '' %}
+  <head>
+    <meta http-equiv="refresh" content="0; url={% url 'mylock:setup_fingerprint' new_user=request.user.username %}" />
+  </head>
+{% endif %} 
+  <p>Hi {{user.username}}!</p>
+  <p>In this environment you can consult the log with a list of all people who recently gained access through this lock, you can also access a list of all people who are allowed entry by this lock in the first place.</p>
+  <p>If you have administrative privileges you can manage this list by deleting people from it or adding them to it.</p>
+{% if request.user.is_superuser %}
+  <p>You have administrative privileges</p>
+{% endif %}
+  <h4>To get started you can access the modules in the navigational pane</h4>
+{% endblock %}

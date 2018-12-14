@@ -1,0 +1,28 @@
+{% extends 'mylock_base.html' %}
+
+{% block urltitle %}smartLock | {{user}}{% endblock %}
+
+{% block title %}Details of {{user}}{% endblock %}
+
+{% block content %}
+  <table class="table table-bordered table-responsive-sm">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for info in user_detail %}
+        <td>{{info}}</td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+  {% if request.user.is_superuser %}
+  <a href="/mylock/users/{{user}}/delete_user" class="btn btn-outline-danger" role="button"><i class="fa fa-times"></i>  Delete user</a>
+  {% endif %}
+{% endblock %}
+

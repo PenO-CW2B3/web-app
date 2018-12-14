@@ -1,0 +1,17 @@
+{% extends 'mylock_base.html' %}
+
+{% block urltitle %}setup fingerprint{% endblock %}
+
+{% block title %}Add your fingerprint to the database{% endblock %}
+
+{% block content %}
+<p>In this step you will scan your finger two times so we can store it in our database. Just click on the “Take fingerprint” button above and follow the steps below:</p>
+<p>STEP 1: Once the fingerprint scanner turns red, place your finger on the scanner* untill the red light turns off.</p>
+<p>STEP 2: Wait for the fingerprint scanner to turn red again and place the same finger on the scanner untill the red light turns off. (If the fingerprint scanner turns red again, just repeat ‘STEP 2’ untill succes).</p4>
+<p>*The fingerprint scanner is located on the left side of the door handle</p>
+<br>
+<form method="get">
+  <button type="submit" class="btn btn-outline-primary" value="Take fingerprint" name="fingerprint_button">Take fingerprint <i class="fas fa-fingerprint"></i></button>
+</form>
+
+{% endblock %}

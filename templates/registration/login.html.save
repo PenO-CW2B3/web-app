@@ -1,0 +1,14 @@
+<!-- templates/registration/login.html -->
+{% extends 'base.html' %}
+
+{% block urltitle %}smartlock login{% endblock %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button>
+</form>
+{% endblock %}

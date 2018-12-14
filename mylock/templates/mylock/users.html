@@ -1,0 +1,17 @@
+{% extends 'mylock_base.html' %}
+
+{% block urltitle %}smartLock | Users{% endblock %}
+
+{% block title %}List of all the users{% endblock %}
+
+{% block content %}
+  <p>This page contains a list of all the users who may gain entry by this lock, you can select a username to see more detailed information of the respective user.</p>
+  <div class="list-group">
+  {% for user in users_list %}
+    <a href="/mylock/users/{{user}}" class="list-group-item list-group-item-action">{{user}}</a>
+  {% endfor %}
+  </div>
+  {% if request.user.is_superuser %}
+  <a href="{% url 'mylock:add_user' %}" class="btn btn-outline-success" style="margin-top: 15px;" role="button"><i class="fa fa-user-plus"></i> Add user</a>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'mylock_base.html' %}
+{% load static %}
+
+{% block urltitle %}setup facial recognition{% endblock %}
+
+{% block title %}Add pictures of your face to the database{% endblock %}
+
+{% block content %}
+{{text}}
+  <form method="get">
+    <button type="submit" class="btn btn-outline-primary" value="Take photo" name="photo_button">Take photo <i class="fas fa-camera"></i></button>
+  </form>
+  <p>In this step you will take five pictures of your face for us to put in the database. With these pictures the smart lock will be able to recognize you when you want to unlock your door. To ensure the smart lock recognizes you every time, you will need to tilt your face in a different direction for every picture. Please follow the steps below:</p>
+  
+  <h4>Picture 1:</h4>
+  <p>- Copy the stance of the face below and look at the camera with a straight face</p>
+  <p>- Place your hand around the door handle and remove it</p>
+  <p>- Wait for the door handle to flash a red light, this means the picture was succesfully taken</p>
+  <img src="{% static 'Face1.png' %}" class="img-fluid">
+  
+  <h4>Picture 2:</h4>
+  <p>- Copy the stance of the face below and look at the camera with a straight face</p>
+  <p>- Place your hand around the door handle and remove it</p>
+  <p>- Wait for the door handle to flash a red light, this means the picture was succesfully taken</p>
+  <img src="{% static 'Face2.png' %}" class="img-fluid">
+
+  <h4>Picture 3:</h4>
+  <p>- Copy the stance of the face below and look at the camera with a straight face</p>
+  <p>- Place your hand around the door handle and remove it</p>
+  <p>- Wait for the door handle to flash a red light, this means the picture was succesfully taken</p>
+  <img src="{% static 'Face3.png' %}" class="img-fluid">
+
+  <h4>Picture 4:</h4>
+  <p>- Copy the stance of the face below and look at the camera with a straight face</p>
+  <p>- Place your hand around the door handle and remove it</p>
+  <p>- Wait for the door handle to flash a red light, this means the picture was succesfully taken</p>
+  <img src="{% static 'Face4.png' %}" class="img-fluid">
+
+  <h4>Picture 5:</h4>
+  <p>- Copy the stance of the face below and look at the camera with a straight face</p>
+  <p>- Place your hand around the door handle and remove it</p>
+  <p>- Wait for the door handle to flash a red light, this means the picture was succesfully taken</p>
+  <img src="{% static 'Face5.png' %}" class="img-fluid"/>
+
+{% endblock %}

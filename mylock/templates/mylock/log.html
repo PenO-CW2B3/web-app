@@ -1,0 +1,26 @@
+{% extends 'mylock_base.html' %}
+
+{% block urltitle %}log{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Day</th>
+        <th scope="col">Time</th>
+        <th scope="col">Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in log_list %}
+        <tr>
+          {% for info in log %}
+            <td>{{info}}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table> 
+{% endblock %}

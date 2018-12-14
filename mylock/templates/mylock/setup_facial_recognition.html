@@ -1,0 +1,52 @@
+{% extends 'mylock_base.html' %}
+
+{% block urltitle %}setup facial recognition{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  </style>
+  <script>
+  $(document).ready(function(){
+    $("button").click(function(){
+      $("button").hide();
+      $("#loader").show();
+    });
+  });
+  </script>
+</head>
+<p>{{text}}</p>
+<p>{{test}}</p>
+{% if photo_number >= 0 and photo_number < 5%}
+  <head>
+    <meta http-equiv="refresh" content="0; url={% url 'mylock:setup_facial_recognition' new_user=request.user.username photo_number=next_photo_number %}" />
+  </head>
+  <div id="loader" class="loader"></div>
+{% elif photo_number == 5 %}
+  <head>
+    <meta http-equiv="refresh" content="5; url={% url 'mylock:users' %}" />
+  </head>
+<p>{{succes_message}}</p>
+{% endif %}
+{% endblock %}

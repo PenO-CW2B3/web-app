@@ -1,0 +1,205 @@
+{% extends 'mylock_base.html' %}
+
+{% load widget_tweaks %}
+
+{% block urltitle %}smartLock | Add user{% endblock %}
+
+{% block content %}
+<head>
+    <style>
+    @media(min-width: 768px) {
+      .field-label-responsive {
+        padding-top: .5rem;
+        text-align: right;
+      }
+    }
+    </style>
+    
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+</head>
+{% if text is None %}
+<body>
+<div class="container">
+    <form class="form-horizontal" role="form" method="post" action="/mylock/users/add_user/">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h1>Add new user</h1>
+                <p>Enter the details of the user that will be added to the lock.</p>
+                <p>You need to enter the full name, a valid e-mailaddress, an arbitrary (unused) username and a secure password</p>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem">
+                            <i class="fa fa-user"></i>
+                        </div>
+                          {% if form.is_bound %}
+                            {% if form.name.errors %}
+                              {% render_field form.name|attr:"placeholder:Enter your Name" class="form-control is-invalid" %}
+                              {% for error in form.name.errors %}
+                                <div class="invalid-feedback">
+                                  {{error}}
+                                </div>    
+                              {% endfor %}
+                            {% else %}
+                              {% render_field form.name|attr:"placeholder:Enter your Name" class="form-control is-valid" %}
+                            {% endif %}
+                          {% else %}  
+                            {% render_field form.name|attr:"placeholder:Enter your Name" class="form-control" %}
+                          {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-envelope"></i></div>
+                          {% if form.is_bound %}
+                            {% if form.email.errors %}
+                              {% render_field form.email|attr:"placeholder:Enter your Email" class="form-control is-invalid" %}
+                              {% for error in form.email.errors %}
+                                <div class="invalid-feedback">
+                                  {{error}}
+                                </div>
+                              {% endfor %}
+                            {% else %}
+                              {% render_field form.email|attr:"placeholder:Enter your Email" class="form-control is-valid" %}
+                            {% endif %}
+                          {% else %}
+                            {% render_field form.email|attr:"placeholder:Enter your Email" class="form-control" %}
+                          {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                        </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-users"></i></div>
+                          {% if form.is_bound %}
+                            {% if form.username.errors %}
+                              {% render_field form.username|attr:"placeholder:Enter your Username" class="form-control is-invalid" %}
+                              {% for error in form.username.errors %}
+                                <div class="invalid-feedback">
+                                  {{error}}
+                                </div>
+                              {% endfor %}
+                            {% else %}
+                              {% render_field form.username|attr:"placeholder:Enter your Username" class="form-control is-valid" %}
+                            {% endif %}
+                          {% else %}
+                            {% render_field form.username|attr:"placeholder:Enter your Username" class="form-control" %}
+                          {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                        </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-lock"></i></div>
+                          {% if form.is_bound %}
+                            {% if form.password.errors %}
+                              {% render_field form.password|attr:"placeholder:Enter your Password" class="form-control is-invalid" %}
+                              {% for error in form.password.errors %}
+                                <div class="invalid-feedback">
+                                  {{error}}
+                                </div>
+                              {% endfor %}
+                            {% else %}
+                              {% render_field form.password|attr:"placeholder:Enter your Password" class="form-control is-valid" %}
+                            {% endif %}
+                          {% else %}
+                            {% render_field form.password|attr:"placeholder:Enter your Password" class="form-control" %}
+                          {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                        </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-lock"></i></div>
+                          {% if form.is_bound %}
+                            {% if form.password_confirmation.errors %}
+                              {% render_field form.password_confirmation|attr:"placeholder:Confirm your Password" class="form-control is-invalid" %}
+                              {% for error in form.password_confirmation.errors %}
+                                <div class="invalid-feedback">
+                                  {{error}}
+                                </div>
+                              {% endfor %}
+                            {% else %}
+                              {% render_field form.password_confirmation|attr:"placeholder:Confirm your Password" class="form-control is-valid" %}
+                            {% endif %}
+                          {% else %}
+                            {% render_field form.password_confirmation|attr:"placeholder:Confirm your Password" class="form-control" %}
+                          {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                        <span class="text-danger align-middle">
+                        </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-outline-success"><i class="fa fa-user-plus"></i> Add user</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+{% else %}
+  <head>
+    <meta http-equiv="refresh" content="5; url={% url 'mylock:home' %}" />
+  </head>
+
+{{text}}
+{% endif %}
+{% endblock %}

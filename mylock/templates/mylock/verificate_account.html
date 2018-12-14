@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block urltitle %}verificate account{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+  <head>
+    <meta http-equiv="refresh" content="5; url={% url 'smartlock' %}" />
+  </head>
+  <p>{{text}}</p>
+{% endblock %}
